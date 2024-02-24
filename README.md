@@ -31,7 +31,15 @@ You can compile the project (.java) file on the command line, and then execute t
 
 The compilation and execution in the command line is subject to the proper working directory and installed JAVA Compiler and specific platform.
 
+## Example Run
 
+This console application runs in the terminal.  Added ANSI color to help with the view and navigation.
+
+![Example usage](run.png)
+
+Although not fully implemented, the FoodTruck class provides a method to generate it's data in Bootstrap card format.
+
+![Example usage](bs.png)
 
 ## Project requirements
 
