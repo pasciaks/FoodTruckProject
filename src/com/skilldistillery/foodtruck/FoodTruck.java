@@ -74,7 +74,10 @@ public class FoodTruck {
 
 	@Override
 	public String toString() {
-		return name + ", " + foodType + ", " + " Rating: " + rating + " ( " + getRatingStars() + " )";
+		// When the menu item to list all trucks is selected, each trucks properties are
+		// displayed (id, name, food type, and rating).
+		return "#" + truckID + ": " + name + ", " + foodType + ", " + " Rating: " + rating + " ( " + getRatingStars()
+				+ " )";
 	}
 
 	public String generateBootstrapCard() {
