@@ -21,9 +21,9 @@ public class FoodTruckApp {
 
 		showWelcome();
 
-		// getFoodTruckData(kb);
+		getFoodTruckData(kb);
 
-		getTestFoodTruckData();
+		// getTestFoodTruckData();
 
 		interactiveMenu(kb);
 
@@ -89,33 +89,54 @@ public class FoodTruckApp {
 		String foodType;
 		int rating;
 
-		for (int i = 0; i < foodTrucks.length; i++) {
+		// for (int i = 0; i < foodTrucks.length; i++) { // NOTE: Re factored
+
+		int currentTruck = 0;
+
+		do {
 
 			System.out.println();
+			System.out.println("Truck " + (currentTruck + 1) + " of " + MAX_TRUCKS);
+
 			System.out.println("Enter the name of the food truck or 'quit' to stop entering trucks: ");
 			System.out.print("Enter the name of the food truck: ");
-			name = kb.nextLine();
+			name = kb.nextLine().trim();
 
 			if (name.equals("quit")) {
 				break;
 			}
 
 			System.out.print("Enter the type of food served: ");
-			foodType = kb.nextLine();
+			foodType = kb.nextLine().trim();
 
 			System.out.println();
 			System.out.println("1 - Terrible, 2 - Bad, 3 - Average, 4 - Good, 5 - Excellent");
-
 			System.out.print("Enter the rating for this truck (1-5): ");
-			rating = kb.nextInt();
-			kb.nextLine(); // clear the scanner
 
-			addTruck(name, foodType, rating);
-		}
+			String ratingString = kb.nextLine().trim();
+
+			// front end validation
+			try {
+				rating = Integer.parseInt(ratingString);
+			} catch (Exception e) {
+				System.err.println("Error adding truck: " + e.getMessage());
+				continue;
+			}
+
+			// back end validation
+			if (addTruck(name, foodType, rating)) {
+				currentTruck++;
+			} else {
+				System.err.println("Error adding truck: Please try again.");
+			}
+
+		} while (currentTruck < MAX_TRUCKS);
+
+		// } // NOTE: Re factored
 
 	}
 
-	public void addTruck(String name, String foodType, int rating) {
+	public boolean addTruck(String name, String foodType, int rating) {
 		for (int i = 0; i < foodTrucks.length; i++) {
 			if (foodTrucks[i] == null) {
 				FoodTruck ft = null;
@@ -123,12 +144,14 @@ public class FoodTruckApp {
 					ft = new FoodTruck(name, foodType, rating);
 				} catch (Exception e) {
 					System.err.println("Error adding truck: " + e.getMessage());
+					return false;
 				}
 				foodTrucks[i] = ft;
-				return;
+				return true;
 			}
 		}
 		System.err.println("Error adding truck: No room for more trucks.");
+		return false;
 
 	}
 

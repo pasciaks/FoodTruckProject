@@ -18,23 +18,9 @@ public class FoodTruck {
 
 	public FoodTruck(String name, String foodType, int rating) {
 		this();
-		if (name == null) {
-			// System.err.println("Name must not be null.");
-			throw new IllegalArgumentException("Name must not be null.");
-
-		}
-		this.name = name;
-		if (foodType == null) {
-			// System.err.println("Food type must not be null.");
-			throw new IllegalArgumentException("Food type must not be null.");
-
-		}
-		this.foodType = foodType;
-		if (rating < 1 || rating > 5) {
-			// System.err.println("Rating must be between 1 and 5.");
-			throw new IllegalArgumentException("Rating must be between 1 and 5.");
-		}
-		this.rating = rating;
+		this.setName(name);
+		this.setFoodType(foodType);
+		this.setRating(rating);
 	}
 
 	public String getName() {
@@ -42,6 +28,10 @@ public class FoodTruck {
 	}
 
 	public void setName(String name) {
+		if (name == null || name.length() == 0) {
+			// System.err.println("Name must not be null.");
+			throw new IllegalArgumentException("Name must not be null.");
+		}
 		this.name = name;
 	}
 
@@ -50,6 +40,10 @@ public class FoodTruck {
 	}
 
 	public void setFoodType(String foodType) {
+		if (foodType == null || foodType.length() == 0) {
+			// System.err.println("Food type must not be null.");
+			throw new IllegalArgumentException("Food type must not be null.");
+		}
 		this.foodType = foodType;
 	}
 
@@ -58,6 +52,10 @@ public class FoodTruck {
 	}
 
 	public void setRating(int rating) {
+		if (rating < 1 || rating > 5) {
+			// System.err.println("Rating must be between 1 and 5.");
+			throw new IllegalArgumentException("Rating must be between 1 and 5.");
+		}
 		this.rating = rating;
 	}
 
