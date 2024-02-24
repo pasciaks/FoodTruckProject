@@ -18,7 +18,9 @@
 #### Lessons Learned
     - Attention to detail, read and re-read requirements.
 	- Commit early, commit often, and push!
-	- Format code, keep it separated (Indented)
+	- Format code, keep it separated (Indented).
+	- Use of Try/Catch and Throws to capture constructor errors.
+	- Implementing minimal client/server (kinda) validation.
 	
 	
 #### How to run this program : This is a .java source code, command line project.  

@@ -49,9 +49,10 @@ public class FoodTruckApp {
 
 			displayMenu();
 
+			// NOTE: Could be improved with input validation and error handling
 			System.out.println("\nEnter a selection: ");
 			int selection = kb.nextInt();
-			kb.nextLine(); // clear the scanner
+			kb.nextLine();
 
 			switch (selection) {
 			case 1:
@@ -118,6 +119,9 @@ public class FoodTruckApp {
 			// front end validation
 			try {
 				rating = Integer.parseInt(ratingString);
+				if (rating < 1 || rating > 5) {
+					throw new IllegalArgumentException("Rating must be between 1 and 5!");
+				}
 			} catch (Exception e) {
 				System.err.println("Error adding truck: " + e.getMessage());
 				continue;
