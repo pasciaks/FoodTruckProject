@@ -2,6 +2,10 @@ package com.skilldistillery.foodtruck;
 
 import java.util.Scanner;
 
+/*
+ * The FoodTruckApp class is the main class for the Food Truck project. It is
+ * responsible for the main menu and user interaction.
+ */
 public class FoodTruckApp {
 
 	private int MAX_TRUCKS = 5;
@@ -15,6 +19,10 @@ public class FoodTruckApp {
 
 	private FoodTruck[] foodTrucks = new FoodTruck[MAX_TRUCKS];
 
+	/*
+	 * The main method is the entry point for the Food Truck App. It creates an
+	 * instance of the FoodTruckApp and calls the run method.
+	 */
 	public static void main(String[] args) {
 
 		FoodTruckApp app = new FoodTruckApp();
@@ -36,8 +44,14 @@ public class FoodTruckApp {
 
 	}
 
+	/*
+	 * The getTestFoodTruckData method is used to populate the foodTrucks array with
+	 * test data. It is called from the interactiveMenu method.
+	 */
 	public void getTestFoodTruckData() {
 		int addTruckResult = -1;
+
+		System.out.println(ANSI_YELLOW + "\nAdding test data..." + ANSI_RESET);
 
 		addTruckResult = addTruck("Taco Bad Rating", "Mexican", 0); // should fail // 0 rating
 		checkTruckAdded(addTruckResult);
@@ -68,14 +82,30 @@ public class FoodTruckApp {
 
 		addTruckResult = addTruck("Bad Too Many", "French", getRandomInt(1, 5)); // should fail (max trucks)
 		checkTruckAdded(addTruckResult);
+
+		System.out.println(ANSI_YELLOW + "\n----------------\nTest data added.\n----------------\n" + ANSI_RESET);
+		System.out.println(
+				ANSI_YELLOW + "Note, some trucks may not have been added due to bad data validation." + ANSI_RESET);
+		System.out.println(
+				ANSI_YELLOW + "Note, some trucks may not have been added due to truck array being full." + ANSI_RESET);
+		System.out.println(
+				ANSI_YELLOW + "This was deliberate for test case demonstration of 'backend' validation." + ANSI_RESET);
 	}
 
+	/*
+	 * The checkTruckAdded method is used to display the result of adding a truck
+	 * from the test data method.
+	 */
 	public void checkTruckAdded(int addTruckResult) {
 		if (addTruckResult >= 0) {
 			System.out.println("Truck added with TruckID = " + addTruckResult);
 		}
 	}
 
+	/*
+	 * The getIntegerInRange method is used to prompt the user for a number within a
+	 * specified range.
+	 */
 	public int getIntegerInRange(Scanner kb, int min, int max) {
 
 		int input = 0;
@@ -92,6 +122,10 @@ public class FoodTruckApp {
 		return input;
 	}
 
+	/*
+	 * The interactiveMenu method is used to display the main menu and prompt the
+	 * user for a selection.
+	 */
 	public void interactiveMenu(Scanner kb) {
 
 		int selection = 0;
@@ -132,24 +166,42 @@ public class FoodTruckApp {
 
 	}
 
+	/*
+	 * The showWelcome method is used to display a welcome message to the user.
+	 */
 	public void showWelcome() {
 		System.out.println(ANSI_RED + "\nWelcome to the Food Truck App!" + ANSI_RESET);
 		System.out.println(ANSI_CYAN + "\nHomework #2 - Skill Distillery" + ANSI_RESET);
 	}
 
+	/*
+	 * The showGoodbye method is used to display a goodbye message to the user.
+	 */
 	public void showGoodbye() {
 		System.out.println(ANSI_YELLOW + "\n\nGoodbye!\n\n" + ANSI_RESET);
 	}
 
+	/*
+	 * The showInvalidSelection method is used to display a message to the user when
+	 * an invalid selection is made.
+	 */
 	public void showInvalidSelection() {
 		System.out.println("\nInvalid selection. Please try again.");
 	}
 
+	/*
+	 * The reset method is used to reset the foodTrucks array to its initial state.
+	 */
 	public void reset() {
 		System.out.println(ANSI_RED + "\n\nResetting data..." + ANSI_RESET);
 		foodTrucks = new FoodTruck[MAX_TRUCKS];
 	}
 
+	/*
+	 * The findEmptyslot method is used to find the first empty slot in the
+	 * foodTrucks array. It returns the index of the first empty slot or -1 if no
+	 * empty slots are found.
+	 */
 	public int findEmptyslot() {
 		for (int i = 0; i < foodTrucks.length; i++) {
 			if (foodTrucks[i] == null) {
@@ -159,6 +211,16 @@ public class FoodTruckApp {
 		return -1;
 	}
 
+	/*
+	 * The getFoodTruckData method is used to prompt the user for data to add a food
+	 * truck to the foodTrucks array.
+	 * 
+	 * It will continue to prompt the user for data until the user enters "quit" or
+	 * the foodTrucks array is full.
+	 * 
+	 * It will also accept the command "data" to auto populate test data.
+	 * 
+	 */
 	public void getFoodTruckData(Scanner kb) {
 
 		String name;
@@ -207,6 +269,12 @@ public class FoodTruckApp {
 				continue;
 			}
 
+			// NOTE: the FoodTruck class will also validate the value for minimum length
+			if (foodType.length() == 0) { // NOTE: This differs from the FoodTruck class validation
+				System.err.println("Error adding truck: Food type must be more than 0 chars in length!");
+				continue;
+			}
+
 			// front end validation
 			rating = getRating(kb);
 			if (rating < 1 || rating > 5) {
@@ -224,6 +292,10 @@ public class FoodTruckApp {
 
 	}
 
+	/*
+	 * The getNameOrExitCommand method is used to prompt the user for the name of a
+	 * food truck or the command "quit" or "data" to stop entering trucks.
+	 */
 	public String getNameOrExitCommand(Scanner kb) {
 		// Initialize local variables
 		String name = "";
@@ -248,6 +320,10 @@ public class FoodTruckApp {
 		return name;
 	}
 
+	/*
+	 * The getFoodType method is used to prompt the user for the type of food served
+	 * by a food truck.
+	 */
 	public String getFoodType(Scanner kb) {
 		// Initialize local variables
 		String foodType = "";
@@ -266,6 +342,10 @@ public class FoodTruckApp {
 		return foodType;
 	}
 
+	/*
+	 * The getRating method is used to prompt the user for the rating of a food
+	 * truck. A rating must be between 1 and 5.
+	 */
 	public int getRating(Scanner kb) {
 		// Initialize local variables
 		int rating = 0;
@@ -292,6 +372,10 @@ public class FoodTruckApp {
 		return rating;
 	}
 
+	/*
+	 * The addTruck method is used to add a food truck to the foodTrucks array. It
+	 * will return the truckID of the truck added or -1 if the truck was not added.
+	 */
 	public int addTruck(String name, String foodType, int rating) {
 
 		for (int i = 0; i < foodTrucks.length; i++) {
@@ -394,6 +478,10 @@ public class FoodTruckApp {
 
 	}
 
+	/*
+	 * The getRandomInt method is used to generate a random integer within a
+	 * specified range. It is used to populate test data.
+	 */
 	public int getRandomInt(int min, int max) {
 		return (int) (Math.random() * (max - min + 1) + min);
 	}
